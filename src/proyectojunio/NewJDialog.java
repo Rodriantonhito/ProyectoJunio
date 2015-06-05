@@ -12,7 +12,6 @@ package proyectojunio;
 public class NewJDialog extends javax.swing.JDialog {
 
     // He creado el contador para que empiece por la posicion 0 del ArrayList
-
     int contador = 0;
     Moviles movil = new Moviles();
 
@@ -24,8 +23,8 @@ public class NewJDialog extends javax.swing.JDialog {
     }
 
     //Creo un metodo para que me muestre las caracteristicas de los moviles
-
     private void MostrarCaracteristicas() {
+        //Muestra las caracteristicas de los moviles en el JDialog
         jTextFieldMarca.setText(movil.caracteristicas.get(contador).getMarca());
         jTextFieldModelo.setText(movil.caracteristicas.get(contador).getModelo());
         jTextFieldCamara.setText(String.valueOf(movil.caracteristicas.get(contador).isCamara()));
@@ -51,6 +50,8 @@ public class NewJDialog extends javax.swing.JDialog {
         jTextFieldPantalla = new javax.swing.JTextField();
         jButtonIzquierda = new javax.swing.JButton();
         jButtonDerecha = new javax.swing.JButton();
+        jButtonGuardar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -76,6 +77,15 @@ public class NewJDialog extends javax.swing.JDialog {
             }
         });
 
+        jButtonGuardar.setText("Guardar");
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Cancelar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,17 +100,21 @@ public class NewJDialog extends javax.swing.JDialog {
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
                         .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldCamara, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldMarca, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+                            .addComponent(jTextFieldModelo)
+                            .addComponent(jTextFieldCamara)
+                            .addComponent(jTextFieldPantalla)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(jButtonIzquierda)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonIzquierda)
+                            .addComponent(jButtonGuardar))
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonDerecha)))
-                .addContainerGap(203, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2)
+                            .addComponent(jButtonDerecha))))
+                .addContainerGap(201, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,7 +139,11 @@ public class NewJDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonIzquierda)
                     .addComponent(jButtonDerecha))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonGuardar)
+                    .addComponent(jButton2))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -134,14 +152,31 @@ public class NewJDialog extends javax.swing.JDialog {
     private void jButtonIzquierdaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIzquierdaActionPerformed
         if (contador > 0) {
             contador--;
-        }MostrarCaracteristicas();
+        }
+        MostrarCaracteristicas();
     }//GEN-LAST:event_jButtonIzquierdaActionPerformed
 
     private void jButtonDerechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDerechaActionPerformed
-        if (contador < movil.caracteristicas.size()-1) {
+        if (contador < movil.caracteristicas.size() - 1) {
             contador++;
-        }MostrarCaracteristicas();
+        }
+        MostrarCaracteristicas();
     }//GEN-LAST:event_jButtonDerechaActionPerformed
+
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        //Guardo las modificaciones que se hagan en el JDialog
+
+        movil.caracteristicas.get(contador).setMarca(jTextFieldMarca.getText());
+        movil.caracteristicas.get(contador).setModelo(jTextFieldModelo.getText());
+        
+        //Hago el bucle if para comparar con el string de la camara si es true o false para poder guardar la informacion
+        if (jTextFieldCamara.getText().equals("true")) {
+            movil.caracteristicas.get(contador).setCamara(true);
+        } else {
+            movil.caracteristicas.get(contador).setCamara(false);
+        }
+        movil.caracteristicas.get(contador).setPantalla(Integer.valueOf(jTextFieldPantalla.getText()));
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,7 +221,9 @@ public class NewJDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonDerecha;
+    private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonIzquierda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

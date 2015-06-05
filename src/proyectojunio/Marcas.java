@@ -4,20 +4,20 @@ import java.awt.Font;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
-public class main extends javax.swing.JDialog {
+public class Marcas extends javax.swing.JDialog {
 
     private final Moviles moviles = new Moviles();
     Font font = new Font("comic sans", Font.ITALIC, 12);
 
-    public main(java.awt.Frame parent, boolean modal) {
+    public Marcas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        // Cargamos la imagen por codigo del boton Subir
+        // Cargamos la imagen por codigo del boton subir
         Image subir = new ImageIcon(this.getClass().getResource("/Imagenes/Subir.jpg")).getImage();
         subir = subir.getScaledInstance(25, 25, Image.SCALE_FAST);
         jButtonSubir.setIcon(new ImageIcon(subir));
 
-        //Cargamos la imagen por codigo del boton Bajar
+        //Cargamos la imagen por codigo del boton bajar
         Image bajar = new ImageIcon(this.getClass().getResource("/Imagenes/bajar.png")).getImage();
         bajar = bajar.getScaledInstance(25, 25, Image.SCALE_FAST);
         jButtonBajar.setIcon(new ImageIcon(bajar));
@@ -117,36 +117,25 @@ public class main extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMostrarActionPerformed
-
-        /*En un campo de texto (JTextField), el usuario podrá indicar un número que hará referencia a uno de los elementos del vector. También dispondrá de un botón "Subir" y otro "Bajar" que permitirán al usuario cambiar el orden de los elementos del array, subiendo o bajando el elemento indicado en el orden del vector. El cambio de orden se debe realizar en un método al que se le indique las 2 posiciones que se deben intercambiar del vector.
-
-         Controla los límites del vector, para que no se pueda subir antes de la posición 0 ni bajar más allá del tamaño del array. Esto se debe controlar con un método que retorne si la posición indicada es correcta o no. Acuérdate añadir los comentarios necesarios en todo el código.
-
-         Además asegúrate de que el usuario introduce un valor numérico entero, mostrando un mensaje de aviso en caso contrario.
-
-         Ventanas de mensajes y confirmación 
-
-         Cambia los textos de los botones "Subir" y "Bajar" por imágenes, realizando la asignación de la imagen desde el código fuente, no desde la vista de diseño de la ventana. Procura que las imágenes utilizadas se encuentren dentro de los paquetes de fuentes de tu proyecto en lugar de hacer referencia a ellas con la ruta completa de la carpeta en la que se encuentren dentro de tu ordenador. De esta manera asegurarás que los usuarios de tu aplicación vean las imágenes aunque se encuentren en otro ordenador. Indica en los comentarios del código de dónde has obtenido las imágenes, y en un archivo de texto colocado en la carpeta principal del proyecto indica las licencias que tienen las imágenes.
-
-         Realiza alguna operación más a tu gusto sobre el array, realizando alguna consulta o modificación de los datos contenidos, procurando que tenga sentido con el tipo de información que se está manejando.
-
-         Añade algún elemento más a la ventana que quede bien integrado en la aplicación o añade alguna nueva funcionalidad a los elementos ya existentes.*/
-        jTextAreaMoviles.setText(moviles.Mostrar());
+        //Con este boton lo que hacemos es mostrar en el TexArea las distintas marcas de los moviles
+       
+        jTextAreaMoviles.setText(moviles.mostrar());
 
         jTextAreaMoviles.setFont(font);
 
     }//GEN-LAST:event_jButtonMostrarActionPerformed
 
     private void jButtonSubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSubirActionPerformed
+        //Lo que recoge del jTexfield1 lo guarda en una variable y mediante el metodo subir incrementa la posicion
         int pos = Integer.valueOf(jTextField1.getText());
-        moviles.Subir(pos);
-        jTextAreaMoviles.setText(moviles.Mostrar());
+        moviles.subirBajar(pos,true);
+        jTextAreaMoviles.setText(moviles.mostrar());
     }//GEN-LAST:event_jButtonSubirActionPerformed
 
     private void jButtonBajarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBajarActionPerformed
         int pos = Integer.valueOf(jTextField1.getText());
-        moviles.Bajar(pos);
-        jTextAreaMoviles.setText(moviles.Mostrar());
+        moviles.subirBajar(pos,false);
+        jTextAreaMoviles.setText(moviles.mostrar());
     }//GEN-LAST:event_jButtonBajarActionPerformed
 
     /**
@@ -166,21 +155,23 @@ public class main extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Marcas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Marcas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Marcas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Marcas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                main dialog = new main(new javax.swing.JFrame(), true);
+                Marcas dialog = new Marcas(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

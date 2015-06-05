@@ -2,11 +2,25 @@ package proyectojunio;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * @author Antonio
+ */
 public class Moviles {
 
-    Caracteristicas caracteristica;
-    public ArrayList<Caracteristicas> caracteristicas = new ArrayList();
+    //Creacion del ArrayList con las caracteristicas de los moviles
 
+   // int pos = 0;
+    Caracteristicas caracteristica;
+
+    /**
+     *
+     */
+    public ArrayList<Caracteristicas> caracteristicas = new ArrayList();
+    //Inicializamos un vector en el que guardaremos las marcas de los moviles
+    private final String[] moviles = {"Nokia", "Samsung", "Iphone", "Arcatel", "Huawei", "BQ"};
+
+    //Se añaden las caracteristicas al objeto creado.
     void añadirCaracteristicas() {
         caracteristica = new Caracteristicas("Nokia", "Lumia", true, 5);
         caracteristicas.add(caracteristica);
@@ -23,11 +37,13 @@ public class Moviles {
 
     }
 
-    //Inicializamos un vector en el que guardaremos las editoriales de los libros
-    private final String[] moviles = {"Nokia", "Samsung", "Iphone", "Arcatel", "Huawei", "BQ"};
-
     //Creamos un metodo para mostrar el contenido guardado en el vector
-    public String Mostrar() {
+
+    /**
+     * 
+     * @return 
+     */
+        public String mostrar() {
 
         String retorno = "";
         for (int i = 0; i < moviles.length; i++) {
@@ -38,33 +54,22 @@ public class Moviles {
         }
         return retorno;
     }
+/**
+ * El metodo hace que suba o
+     * @param pos 
+     * @param arriba 
+ */
+    public void subirBajar(int pos, boolean arriba) {
+        if (arriba) {
+            String posAnt = moviles[pos + 1];
+            moviles[pos + 1] = moviles[pos];
+            moviles[pos] = posAnt;
+        } else {
+            String posPos = moviles[pos - 1];
+            moviles[pos - 1] = moviles[pos];
+            moviles[pos] = posPos;
+        }
 
-    public void Subir(int pos) {
-        /*
-         También dispondrá de un botón
-         "Subir" y otro "Bajar" que permitirán al usuario cambiar el orden de los elementos
-         del array,subiendo o bajando el elemento indicado en el orden del vector.
-         El cambio de orden se debe realizar en un método al que se le indique las 2 posiciones
-         que se deben intercambiar del vector.    
-         */
-
-        //posicion Siguiente
-        String posAnt = moviles[pos - 1];
-
-        //mover la posicion a la posicion siguiente
-        moviles[pos - 1] = moviles[pos];
-//       
-        //la posicion siguiente la movemos a la anterior
-        moviles[pos] = posAnt;
-
-        //tenemos que recoger la informacion del siguiente y almacenarlo e el anterior
-    }
-
-    public void Bajar(int pos) {
-
-        String posPos = moviles[pos + 1];
-        moviles[pos + 1] = moviles[pos];
-        moviles[pos] = posPos;
     }
 
 }
