@@ -19,11 +19,13 @@ public class NewJDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         movil.añadirCaracteristicas();
-        MostrarCaracteristicas();
+        mostrarCaracteristicas();
     }
 
-    //Creo un metodo para que me muestre las caracteristicas de los moviles
-    private void MostrarCaracteristicas() {
+    /**
+     * Creo un metodo para que me muestre las caracteristicas de los moviles
+     */
+    private void mostrarCaracteristicas() {
         //Muestra las caracteristicas de los moviles en el JDialog
         jTextFieldMarca.setText(movil.caracteristicas.get(contador).getMarca());
         jTextFieldModelo.setText(movil.caracteristicas.get(contador).getModelo());
@@ -50,10 +52,17 @@ public class NewJDialog extends javax.swing.JDialog {
         jTextFieldPantalla = new javax.swing.JTextField();
         jButtonIzquierda = new javax.swing.JButton();
         jButtonDerecha = new javax.swing.JButton();
-        jButtonGuardar = new javax.swing.JButton();
+        jButtonModificar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButtonNuevo = new javax.swing.JButton();
+        jButtonGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowStateListener(new java.awt.event.WindowStateListener() {
+            public void windowStateChanged(java.awt.event.WindowEvent evt) {
+                formWindowStateChanged(evt);
+            }
+        });
 
         jLabel1.setText("Marca:");
 
@@ -77,14 +86,28 @@ public class NewJDialog extends javax.swing.JDialog {
             }
         });
 
+        jButtonModificar.setText("Modificar");
+        jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Cancelar");
+
+        jButtonNuevo.setText("Nuevo");
+        jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNuevoActionPerformed(evt);
+            }
+        });
+
         jButtonGuardar.setText("Guardar");
         jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonGuardarActionPerformed(evt);
             }
         });
-
-        jButton2.setText("Cancelar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,12 +132,18 @@ public class NewJDialog extends javax.swing.JDialog {
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonIzquierda)
-                            .addComponent(jButtonGuardar))
+                            .addComponent(jButtonModificar))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2)
-                            .addComponent(jButtonDerecha))))
-                .addContainerGap(201, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonGuardar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButtonDerecha)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonNuevo)))))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,11 +167,13 @@ public class NewJDialog extends javax.swing.JDialog {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonIzquierda)
-                    .addComponent(jButtonDerecha))
+                    .addComponent(jButtonDerecha)
+                    .addComponent(jButtonNuevo))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonGuardar)
-                    .addComponent(jButton2))
+                    .addComponent(jButtonModificar)
+                    .addComponent(jButton2)
+                    .addComponent(jButtonGuardar))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -153,22 +184,22 @@ public class NewJDialog extends javax.swing.JDialog {
         if (contador > 0) {
             contador--;
         }
-        MostrarCaracteristicas();
+        mostrarCaracteristicas();
     }//GEN-LAST:event_jButtonIzquierdaActionPerformed
 
     private void jButtonDerechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDerechaActionPerformed
         if (contador < movil.caracteristicas.size() - 1) {
             contador++;
         }
-        MostrarCaracteristicas();
+        mostrarCaracteristicas();
     }//GEN-LAST:event_jButtonDerechaActionPerformed
 
-    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
         //Guardo las modificaciones que se hagan en el JDialog
 
         movil.caracteristicas.get(contador).setMarca(jTextFieldMarca.getText());
         movil.caracteristicas.get(contador).setModelo(jTextFieldModelo.getText());
-        
+
         //Hago el bucle if para comparar con el string de la camara si es true o false para poder guardar la informacion
         if (jTextFieldCamara.getText().equals("true")) {
             movil.caracteristicas.get(contador).setCamara(true);
@@ -176,6 +207,35 @@ public class NewJDialog extends javax.swing.JDialog {
             movil.caracteristicas.get(contador).setCamara(false);
         }
         movil.caracteristicas.get(contador).setPantalla(Integer.valueOf(jTextFieldPantalla.getText()));
+    }//GEN-LAST:event_jButtonModificarActionPerformed
+
+    private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
+        jTextFieldMarca.setText("");
+        jTextFieldModelo.setText("");
+        jTextFieldCamara.setText("");
+        jTextFieldPantalla.setText("");
+
+
+    }//GEN-LAST:event_jButtonNuevoActionPerformed
+
+    private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowStateChanged
+
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        String marca = jTextFieldMarca.getText();
+        String modelo = jTextFieldModelo.getText();
+        String camara = jTextFieldCamara.getText();
+        int pantalla = Integer.valueOf(jTextFieldPantalla.getText());
+        //Creo una variable booleana para que recoja el String "true" y lo pase como boolean
+        boolean camarita = false;
+        if (camara.equals("true")) {
+            camarita = true;
+        }
+        //Añadimos los campos al Arraylist
+        movil.caracteristicas.add(new Caracteristicas(marca, modelo, camarita, pantalla));
+
+
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     /**
@@ -225,6 +285,8 @@ public class NewJDialog extends javax.swing.JDialog {
     private javax.swing.JButton jButtonDerecha;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonIzquierda;
+    private javax.swing.JButton jButtonModificar;
+    private javax.swing.JButton jButtonNuevo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

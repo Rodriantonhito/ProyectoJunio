@@ -3,6 +3,7 @@ package proyectojunio;
 import java.awt.Font;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 public class Marcas extends javax.swing.JDialog {
 
@@ -118,7 +119,7 @@ public class Marcas extends javax.swing.JDialog {
 
     private void jButtonMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMostrarActionPerformed
         //Con este boton lo que hacemos es mostrar en el TexArea las distintas marcas de los moviles
-       
+
         jTextAreaMoviles.setText(moviles.mostrar());
 
         jTextAreaMoviles.setFont(font);
@@ -128,14 +129,25 @@ public class Marcas extends javax.swing.JDialog {
     private void jButtonSubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSubirActionPerformed
         //Lo que recoge del jTexfield1 lo guarda en una variable y mediante el metodo subir incrementa la posicion
         int pos = Integer.valueOf(jTextField1.getText());
-        moviles.subirBajar(pos,true);
-        jTextAreaMoviles.setText(moviles.mostrar());
+        if (pos >= 0 && pos <= moviles.moviles.length) {
+            moviles.subirBajar(pos, true);
+            jTextAreaMoviles.setText(moviles.mostrar());
+        } else {
+            JOptionPane.showMessageDialog(this, "Fuera de rango");
+        }
+
+
     }//GEN-LAST:event_jButtonSubirActionPerformed
 
     private void jButtonBajarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBajarActionPerformed
         int pos = Integer.valueOf(jTextField1.getText());
-        moviles.subirBajar(pos,false);
-        jTextAreaMoviles.setText(moviles.mostrar());
+        if (pos >= 0 && pos <= moviles.moviles.length) {
+            moviles.subirBajar(pos, false);
+            jTextAreaMoviles.setText(moviles.mostrar());
+        }else {
+            JOptionPane.showMessageDialog(this, "Fuera de rango");
+        }
+
     }//GEN-LAST:event_jButtonBajarActionPerformed
 
     /**

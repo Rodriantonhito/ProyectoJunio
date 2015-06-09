@@ -18,7 +18,7 @@ public class Moviles {
      */
     public ArrayList<Caracteristicas> caracteristicas = new ArrayList();
     //Inicializamos un vector en el que guardaremos las marcas de los moviles
-    private final String[] moviles = {"Nokia", "Samsung", "Iphone", "Arcatel", "Huawei", "BQ"};
+    public final String[] moviles = {"Nokia", "Samsung", "Iphone", "Arcatel", "Huawei", "BQ"};
 
     //Se añaden las caracteristicas al objeto creado.
     void añadirCaracteristicas() {
@@ -40,8 +40,8 @@ public class Moviles {
     //Creamos un metodo para mostrar el contenido guardado en el vector
 
     /**
-     * 
-     * @return 
+     * Lo que hace este metodo es mostrar las distintas marcas cuando se llame en el JDialog
+     * @return es la variable retorno que serían los moviles
      */
         public String mostrar() {
 
@@ -55,9 +55,10 @@ public class Moviles {
         return retorno;
     }
 /**
- * El metodo hace que suba o
-     * @param pos 
-     * @param arriba 
+ * El metodo hace que suba o baje la marca del movil.
+     * @param pos es la posición en el Array que se encuentran los moviles 
+     * @param arriba valor booleano el cual si es verdadero hace que suba de posicion
+     * y si es falso hace que baje
  */
     public void subirBajar(int pos, boolean arriba) {
         if (arriba) {
