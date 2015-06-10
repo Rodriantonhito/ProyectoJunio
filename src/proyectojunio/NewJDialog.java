@@ -5,6 +5,8 @@
  */
 package proyectojunio;
 
+import javax.swing.JFileChooser;
+
 /**
  *
  * @author Antonio
@@ -27,10 +29,10 @@ public class NewJDialog extends javax.swing.JDialog {
      */
     private void mostrarCaracteristicas() {
         //Muestra las caracteristicas de los moviles en el JDialog
-        jTextFieldMarca.setText(movil.caracteristicas.get(contador).getMarca());
-        jTextFieldModelo.setText(movil.caracteristicas.get(contador).getModelo());
-        jTextFieldCamara.setText(String.valueOf(movil.caracteristicas.get(contador).isCamara()));
-        jTextFieldPantalla.setText(String.valueOf(movil.caracteristicas.get(contador).getPantalla()));
+        jTextFieldMarca.setText(Moviles.caracteristicas.get(contador).getMarca());
+        jTextFieldModelo.setText(Moviles.caracteristicas.get(contador).getModelo());
+        jTextFieldCamara.setText(String.valueOf(Moviles.caracteristicas.get(contador).isCamara()));
+        jTextFieldPantalla.setText(String.valueOf(Moviles.caracteristicas.get(contador).getPantalla()));
     }
 
     /**
@@ -56,6 +58,7 @@ public class NewJDialog extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
         jButtonNuevo = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
+        jButtonXML = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowStateListener(new java.awt.event.WindowStateListener() {
@@ -72,14 +75,14 @@ public class NewJDialog extends javax.swing.JDialog {
 
         jLabel4.setText("Pantalla:");
 
-        jButtonIzquierda.setText("Izquierda");
+        jButtonIzquierda.setText("Anterior");
         jButtonIzquierda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonIzquierdaActionPerformed(evt);
             }
         });
 
-        jButtonDerecha.setText("Derecha");
+        jButtonDerecha.setText("Posterior");
         jButtonDerecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDerechaActionPerformed(evt);
@@ -106,6 +109,13 @@ public class NewJDialog extends javax.swing.JDialog {
         jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonGuardarActionPerformed(evt);
+            }
+        });
+
+        jButtonXML.setText("Ver XML");
+        jButtonXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonXMLActionPerformed(evt);
             }
         });
 
@@ -142,8 +152,10 @@ public class NewJDialog extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButtonDerecha)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButtonNuevo)))))
-                .addContainerGap(112, Short.MAX_VALUE))
+                                .addComponent(jButtonNuevo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                                .addComponent(jButtonXML)))))
+                .addGap(23, 23, 23))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,12 +176,18 @@ public class NewJDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextFieldPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonIzquierda)
-                    .addComponent(jButtonDerecha)
-                    .addComponent(jButtonNuevo))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonIzquierda)
+                            .addComponent(jButtonDerecha)
+                            .addComponent(jButtonNuevo))
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonXML)
+                        .addGap(3, 3, 3)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonModificar)
                     .addComponent(jButton2)
@@ -188,7 +206,7 @@ public class NewJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonIzquierdaActionPerformed
 
     private void jButtonDerechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDerechaActionPerformed
-        if (contador < movil.caracteristicas.size() - 1) {
+        if (contador < Moviles.caracteristicas.size() - 1) {
             contador++;
         }
         mostrarCaracteristicas();
@@ -197,16 +215,16 @@ public class NewJDialog extends javax.swing.JDialog {
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
         //Guardo las modificaciones que se hagan en el JDialog
 
-        movil.caracteristicas.get(contador).setMarca(jTextFieldMarca.getText());
-        movil.caracteristicas.get(contador).setModelo(jTextFieldModelo.getText());
+        Moviles.caracteristicas.get(contador).setMarca(jTextFieldMarca.getText());
+        Moviles.caracteristicas.get(contador).setModelo(jTextFieldModelo.getText());
 
         //Hago el bucle if para comparar con el string de la camara si es true o false para poder guardar la informacion
         if (jTextFieldCamara.getText().equals("true")) {
-            movil.caracteristicas.get(contador).setCamara(true);
+            Moviles.caracteristicas.get(contador).setCamara(true);
         } else {
-            movil.caracteristicas.get(contador).setCamara(false);
+            Moviles.caracteristicas.get(contador).setCamara(false);
         }
-        movil.caracteristicas.get(contador).setPantalla(Integer.valueOf(jTextFieldPantalla.getText()));
+        Moviles.caracteristicas.get(contador).setPantalla(Integer.valueOf(jTextFieldPantalla.getText()));
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
@@ -233,10 +251,20 @@ public class NewJDialog extends javax.swing.JDialog {
             camarita = true;
         }
         //Añadimos los campos al Arraylist
-        movil.caracteristicas.add(new Caracteristicas(marca, modelo, camarita, pantalla));
+        Moviles.caracteristicas.add(new Caracteristicas(marca, modelo, camarita, pantalla));
 
 
     }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void jButtonXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXMLActionPerformed
+        JFileChooser xml=new JFileChooser();
+        xml.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        if(xml.showOpenDialog(this)==JFileChooser.APPROVE_OPTION){
+            String ruta = xml.getSelectedFile().getAbsolutePath(); 
+            //C:\Users\Antonio\Documents\NetBeansProjects\ProyectoJunio\Moviles.xml
+        }
+        
+    }//GEN-LAST:event_jButtonXMLActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,6 +315,7 @@ public class NewJDialog extends javax.swing.JDialog {
     private javax.swing.JButton jButtonIzquierda;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JButton jButtonNuevo;
+    private javax.swing.JButton jButtonXML;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -16,7 +16,7 @@ public class Moviles {
     /**
      *
      */
-    public ArrayList<Caracteristicas> caracteristicas = new ArrayList();
+    public static ArrayList<Caracteristicas> caracteristicas = new ArrayList();
     //Inicializamos un vector en el que guardaremos las marcas de los moviles
     public final String[] moviles = {"Nokia", "Samsung", "Iphone", "Arcatel", "Huawei", "BQ"};
 
@@ -28,7 +28,7 @@ public class Moviles {
         caracteristicas.add(caracteristica);
         caracteristica = new Caracteristicas("Iphone", "6", true, 5);
         caracteristicas.add(caracteristica);
-        caracteristica = new Caracteristicas("Arcatel", "one touch", true, 4);
+        caracteristica = new Caracteristicas("Arcatel", "One touch", true, 4);
         caracteristicas.add(caracteristica);
         caracteristica = new Caracteristicas("Huawei", "Ascent", true, 5);
         caracteristicas.add(caracteristica);
@@ -46,28 +46,31 @@ public class Moviles {
         public String mostrar() {
 
         String retorno = "";
-        for (int i = 0; i < moviles.length; i++) {
+        for (int i = 1; i <= moviles.length; i++) {
 
-            retorno += i + 1 + ":";
-            retorno += moviles[i];
+            retorno += i + ":";
+            retorno += moviles[i-1];
             retorno += '\n';
         }
         return retorno;
     }
-/**
- * El metodo hace que suba o baje la marca del movil.
-     * @param pos es la posición en el Array que se encuentran los moviles 
-     * @param arriba valor booleano el cual si es verdadero hace que suba de posicion
-     * y si es falso hace que baje
- */
+        
+    /**
+     * El metodo hace que suba o baje la marca del movil.
+     *
+     * @param pos es la posición en el Array que se encuentran los moviles
+     * @param arriba valor booleano el cual si es verdadero hace que suba de
+     * posicion y si es falso hace que baje
+     */
+        
     public void subirBajar(int pos, boolean arriba) {
         if (arriba) {
-            String posAnt = moviles[pos + 1];
-            moviles[pos + 1] = moviles[pos];
+            String posAnt = moviles[pos - 1];
+            moviles[pos - 1] = moviles[pos];
             moviles[pos] = posAnt;
         } else {
-            String posPos = moviles[pos - 1];
-            moviles[pos - 1] = moviles[pos];
+            String posPos = moviles[pos + 1];
+            moviles[pos + 1] = moviles[pos];
             moviles[pos] = posPos;
         }
 

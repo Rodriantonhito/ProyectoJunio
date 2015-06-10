@@ -128,8 +128,8 @@ public class Marcas extends javax.swing.JDialog {
 
     private void jButtonSubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSubirActionPerformed
         //Lo que recoge del jTexfield1 lo guarda en una variable y mediante el metodo subir incrementa la posicion
-        int pos = Integer.valueOf(jTextField1.getText());
-        if (pos >= 0 && pos <= moviles.moviles.length) {
+        int pos = Integer.valueOf(jTextField1.getText())-1;
+        if (pos >= 1 && pos < moviles.moviles.length) {
             moviles.subirBajar(pos, true);
             jTextAreaMoviles.setText(moviles.mostrar());
         } else {
@@ -140,8 +140,8 @@ public class Marcas extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonSubirActionPerformed
 
     private void jButtonBajarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBajarActionPerformed
-        int pos = Integer.valueOf(jTextField1.getText());
-        if (pos >= 0 && pos <= moviles.moviles.length) {
+        int pos = Integer.valueOf(jTextField1.getText())-1;
+        if (pos >= 0 && pos < moviles.moviles.length -1) {
             moviles.subirBajar(pos, false);
             jTextAreaMoviles.setText(moviles.mostrar());
         }else {

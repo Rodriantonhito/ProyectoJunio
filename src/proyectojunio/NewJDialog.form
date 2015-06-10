@@ -57,15 +57,17 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jButtonGuardar" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="jButtonDerecha" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jButtonNuevo" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="28" max="32767" attributes="0"/>
+                              <Component id="jButtonXML" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="112" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -92,13 +94,22 @@
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldPantalla" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButtonIzquierda" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButtonDerecha" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButtonNuevo" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jButtonIzquierda" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonDerecha" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonNuevo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jButtonXML" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButtonModificar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -140,7 +151,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonIzquierda">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Izquierda"/>
+        <Property name="text" type="java.lang.String" value="Anterior"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonIzquierdaActionPerformed"/>
@@ -148,7 +159,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonDerecha">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Derecha"/>
+        <Property name="text" type="java.lang.String" value="Posterior"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonDerechaActionPerformed"/>
@@ -181,6 +192,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonGuardarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonXML">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ver XML"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonXMLActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
