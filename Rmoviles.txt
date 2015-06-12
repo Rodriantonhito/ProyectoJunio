@@ -1,0 +1,6 @@
+Nokia	Lumia	true	5
+Samsung	S6	true	5
+Iphone	6	true	5
+Arcatel	One touch	true	4
+Huawei	Ascent	true	5
+BQ	E5	true	5

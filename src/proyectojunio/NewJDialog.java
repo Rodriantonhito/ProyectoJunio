@@ -5,7 +5,20 @@
  */
 package proyectojunio;
 
+import java.awt.HeadlessException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -59,6 +72,7 @@ public class NewJDialog extends javax.swing.JDialog {
         jButtonNuevo = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jButtonXML = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowStateListener(new java.awt.event.WindowStateListener() {
@@ -112,10 +126,17 @@ public class NewJDialog extends javax.swing.JDialog {
             }
         });
 
-        jButtonXML.setText("Ver XML");
+        jButtonXML.setText("Importar XML");
         jButtonXML.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonXMLActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Exportar csv");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -148,12 +169,15 @@ public class NewJDialog extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton2)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButtonGuardar))
+                                .addComponent(jButtonGuardar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButtonDerecha)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButtonNuevo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButtonXML)))))
                 .addGap(23, 23, 23))
         );
@@ -176,22 +200,18 @@ public class NewJDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextFieldPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButtonIzquierda)
-                            .addComponent(jButtonDerecha)
-                            .addComponent(jButtonNuevo))
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonXML)
-                        .addGap(3, 3, 3)))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonIzquierda)
+                    .addComponent(jButtonDerecha)
+                    .addComponent(jButtonNuevo)
+                    .addComponent(jButtonXML))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonModificar)
                     .addComponent(jButton2)
-                    .addComponent(jButtonGuardar))
+                    .addComponent(jButtonGuardar)
+                    .addComponent(jButton1))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -257,14 +277,106 @@ public class NewJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXMLActionPerformed
-        JFileChooser xml=new JFileChooser();
+        JFileChooser xml = new JFileChooser();
         xml.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        if(xml.showOpenDialog(this)==JFileChooser.APPROVE_OPTION){
-            String ruta = xml.getSelectedFile().getAbsolutePath(); 
+        //si esta aceptado se ejecuta el if y si no aceptamos no entra dentro del bucle.
+        if (xml.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            String ruta = xml.getSelectedFile().getAbsolutePath();
             //C:\Users\Antonio\Documents\NetBeansProjects\ProyectoJunio\Moviles.xml
+
+            try {
+                DocumentBuilderFactory fabricaCreadorDocumento = DocumentBuilderFactory.newInstance();
+                DocumentBuilder creadorDocumento = fabricaCreadorDocumento.newDocumentBuilder();
+                Document documento = (Document) creadorDocumento.parse(ruta);
+
+                //Obtener el elemento raíz del documento
+                Element raiz = documento.getDocumentElement();
+
+                // Obtener la lista de nodos que tienen etiqueta "MOVIL"
+                NodeList listaMoviles = raiz.getElementsByTagName("MOVIL");
+
+                //Recorrer la lista de moviles
+                for (int i = 0; i < listaMoviles.getLength(); i++) {
+                    //Obtener de la lista un movil tras otro
+                    Node movil1 = listaMoviles.item(i);
+                    Caracteristicas c = new Caracteristicas();
+                    //Obtener la lista de los datos que contiene ese movil
+                    NodeList datosMovil = movil1.getChildNodes();
+                    //Recorrer la lista de los datos que contiene el movil
+                    for (int j = 0; j < datosMovil.getLength(); j++) {
+                        //Obtener de la lista de datos un dato tras otro
+                        Node dato = datosMovil.item(j);
+
+                        //Comprobar que el dato se trata de un nodo de tipo Element
+                        if (dato.getNodeType() == Node.ELEMENT_NODE) {
+                            //Mostrar el nombre del tipo de dato
+                            if (dato.getNodeName().equalsIgnoreCase("Marca")) {
+                                c.setMarca(dato.getFirstChild().getNodeValue());
+                            }
+                            if (dato.getNodeName().equalsIgnoreCase("Modelo")) {
+                                c.setModelo(dato.getFirstChild().getNodeValue());
+                            }
+                            if (dato.getNodeName().equalsIgnoreCase("Camara")) {
+                                String camara = dato.getFirstChild().getNodeValue();
+                                //Creo una variable booleana para que recoja el String "true" y lo pase como boolean
+                                boolean camarita = false;
+                                if (camara.equals("true")) {
+                                    camarita = true;
+                                }
+                                c.setCamara(camarita);
+                            }
+                            if (dato.getNodeName().equalsIgnoreCase("Pantalla")) {
+                                c.setPantalla(Integer.valueOf(dato.getFirstChild().getNodeValue()));
+                            }
+                        }
+                    }
+                    //Guarda en las caracteristicas del movil el xml
+                    Moviles.caracteristicas.add(c);
+                }
+            } catch (SAXException ex) {
+                JOptionPane.showMessageDialog(this,"ERROR: El formato XML del fichero no es correcto");
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this,"ERROR: Se ha producido un error el leer el fichero");                
+            } catch (ParserConfigurationException ex) {
+                JOptionPane.showMessageDialog(this,"ERROR: No se ha podido crear el generador de documentos XML");
+                
+            }
         }
-        
     }//GEN-LAST:event_jButtonXMLActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String nombreFichero = "Rmoviles.txt";        
+        BufferedWriter bw = null;
+        try {            
+           //Crea el archivo
+            bw = new BufferedWriter(new FileWriter(nombreFichero));
+            //Obtiene del arraylist las caracteristicas y las recorre con el bucle for
+            for (int i = 0; i < Moviles.caracteristicas.size(); i++) {
+                String texto;
+                String marca= Moviles.caracteristicas.get(i).getMarca();
+                String modelo=Moviles.caracteristicas.get(i).getModelo();
+                int pantalla= Moviles.caracteristicas.get(i).getPantalla();
+                boolean camara=Moviles.caracteristicas.get(i).isCamara();
+                // Muestra en el archivo exportado la variable texto con todas las caracteristicas.
+                texto= marca +"\t"+modelo+"\t"+camara+"\t"+pantalla+ "\r\n";                
+                bw.write(texto);
+            }           
+            JOptionPane.showMessageDialog(this,"Archivo creado,Rmoviles");
+        }
+        catch(IOException | HeadlessException e) {
+           JOptionPane.showMessageDialog(this,"Error de escritura del fichero");           
+        }
+        finally {
+            try {
+                //Cerrar el buffer
+                if(bw != null)
+                    bw.close();
+            }
+            catch (Exception e) {
+                JOptionPane.showMessageDialog(this,"Error al cerrar el fichero");                
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -309,6 +421,7 @@ public class NewJDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonDerecha;
     private javax.swing.JButton jButtonGuardar;

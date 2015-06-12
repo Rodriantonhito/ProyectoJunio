@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MOVILES>
    <MOVIL>
-     <MARCA>Nokia</MARCA>
-     <MODELO>Lumia</MODELO>
+     <MARCA>Motorola</MARCA>
+     <MODELO>Nexus</MODELO>
      <CAMARA>true</CAMARA>
-     <PANTALLA>5</PANTALLA>
+     <PANTALLA>6</PANTALLA>
    </MOVIL>
    
    <MOVIL>
-     <MARCA>Samsung</MARCA>
-     <MODELO>S6</MODELO>
+     <MARCA>Siemens</MARCA>
+     <MODELO>R1</MODELO>
      <CAMARA>true</CAMARA>
-     <PANTALLA>5</PANTALLA>
+     <PANTALLA>3</PANTALLA>
    </MOVIL>
    
    <MOVIL>
      <MARCA>Iphone</MARCA>
-     <MODELO>6</MODELO>
+     <MODELO>5</MODELO>
      <CAMARA>true</CAMARA>
      <PANTALLA>5</PANTALLA>
    </MOVIL>
    
    <MOVIL>
-     <MARCA>Arcatel</MARCA>
-     <MODELO>One touch</MODELO>
-     <CAMARA>true</CAMARA>
-     <PANTALLA>4</PANTALLA>
-   </MOVIL>
-   
-   <MOVIL>
-     <MARCA>Huawei</MARCA>
-     <MODELO>Ascent</MODELO>
+     <MARCA>Orange</MARCA>
+     <MODELO>Daytona</MODELO>
      <CAMARA>true</CAMARA>
      <PANTALLA>5</PANTALLA>
    </MOVIL>
    
    <MOVIL>
-     <MARCA>BQ</MARCA>
-     <MODELO>E5</MODELO>
+     <MARCA>Nexus</MARCA>
+     <MODELO>5</MODELO>
      <CAMARA>true</CAMARA>
      <PANTALLA>5</PANTALLA>
    </MOVIL>
-<MOVILES>
+   
+   <MOVIL>
+     <MARCA>Acer</MARCA>
+     <MODELO>E520</MODELO>
+     <CAMARA>true</CAMARA>
+     <PANTALLA>6</PANTALLA>
+   </MOVIL>
+</MOVILES>
