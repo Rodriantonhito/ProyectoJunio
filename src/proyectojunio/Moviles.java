@@ -9,8 +9,7 @@ import java.util.ArrayList;
 public class Moviles {
 
     //Creacion del ArrayList con las caracteristicas de los moviles
-
-   // int pos = 0;
+    // int pos = 0;
     Caracteristicas caracteristica;
 
     /**
@@ -38,23 +37,24 @@ public class Moviles {
     }
 
     //Creamos un metodo para mostrar el contenido guardado en el vector
-
     /**
-     * Lo que hace este metodo es mostrar las distintas marcas cuando se llame en el JDialog
+     * Lo que hace este metodo es mostrar las distintas marcas cuando se llame
+     * en el JDialog
+     *
      * @return es la variable retorno que serían los moviles
      */
-        public String mostrar() {
+    public String mostrar() {
 
         String retorno = "";
         for (int i = 1; i <= moviles.length; i++) {
 
             retorno += i + ":";
-            retorno += moviles[i-1];
+            retorno += moviles[i - 1];
             retorno += '\n';
         }
         return retorno;
     }
-        
+
     /**
      * El metodo hace que suba o baje la marca del movil.
      *
@@ -62,7 +62,6 @@ public class Moviles {
      * @param arriba valor booleano el cual si es verdadero hace que suba de
      * posicion y si es falso hace que baje
      */
-        
     public void subirBajar(int pos, boolean arriba) {
         if (arriba) {
             String posAnt = moviles[pos - 1];
@@ -75,5 +74,7 @@ public class Moviles {
         }
 
     }
+
+   
 
 }

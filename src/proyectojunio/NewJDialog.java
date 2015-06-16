@@ -35,6 +35,7 @@ public class NewJDialog extends javax.swing.JDialog {
         initComponents();
         movil.añadirCaracteristicas();
         mostrarCaracteristicas();
+        actualizar();
     }
 
     /**
@@ -46,6 +47,19 @@ public class NewJDialog extends javax.swing.JDialog {
         jTextFieldModelo.setText(Moviles.caracteristicas.get(contador).getModelo());
         jTextFieldCamara.setText(String.valueOf(Moviles.caracteristicas.get(contador).isCamara()));
         jTextFieldPantalla.setText(String.valueOf(Moviles.caracteristicas.get(contador).getPantalla()));
+    }
+
+    private void actualizar() {
+        //Guardo las modificaciones que se hagan en el JDialog
+        Moviles.caracteristicas.get(contador).setMarca(jTextFieldMarca.getText());
+        Moviles.caracteristicas.get(contador).setModelo(jTextFieldModelo.getText());
+
+        //Hago el bucle if para comparar con el string de la camara si es true o false para poder guardar la informacion
+        if (jTextFieldCamara.getText().equals("true")) {
+            Moviles.caracteristicas.get(contador).setCamara(true);
+        } else {
+            Moviles.caracteristicas.get(contador).setCamara(false);
+        }
     }
 
     /**
@@ -68,7 +82,7 @@ public class NewJDialog extends javax.swing.JDialog {
         jButtonIzquierda = new javax.swing.JButton();
         jButtonDerecha = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonEliminar = new javax.swing.JButton();
         jButtonNuevo = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jButtonXML = new javax.swing.JButton();
@@ -110,7 +124,12 @@ public class NewJDialog extends javax.swing.JDialog {
             }
         });
 
-        jButton2.setText("Cancelar");
+        jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
 
         jButtonNuevo.setText("Nuevo");
         jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -167,7 +186,7 @@ public class NewJDialog extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2)
+                                .addComponent(jButtonEliminar)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButtonGuardar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -209,7 +228,7 @@ public class NewJDialog extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonModificar)
-                    .addComponent(jButton2)
+                    .addComponent(jButtonEliminar)
                     .addComponent(jButtonGuardar)
                     .addComponent(jButton1))
                 .addContainerGap(23, Short.MAX_VALUE))
@@ -233,18 +252,7 @@ public class NewJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonDerechaActionPerformed
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
-        //Guardo las modificaciones que se hagan en el JDialog
-
-        Moviles.caracteristicas.get(contador).setMarca(jTextFieldMarca.getText());
-        Moviles.caracteristicas.get(contador).setModelo(jTextFieldModelo.getText());
-
-        //Hago el bucle if para comparar con el string de la camara si es true o false para poder guardar la informacion
-        if (jTextFieldCamara.getText().equals("true")) {
-            Moviles.caracteristicas.get(contador).setCamara(true);
-        } else {
-            Moviles.caracteristicas.get(contador).setCamara(false);
-        }
-        Moviles.caracteristicas.get(contador).setPantalla(Integer.valueOf(jTextFieldPantalla.getText()));
+        actualizar();
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
@@ -277,7 +285,9 @@ public class NewJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXMLActionPerformed
+        //Abre la ventana
         JFileChooser xml = new JFileChooser();
+        //hace que se vean los directorios y los ficheros.
         xml.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         //si esta aceptado se ejecuta el if y si no aceptamos no entra dentro del bucle.
         if (xml.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
@@ -334,49 +344,54 @@ public class NewJDialog extends javax.swing.JDialog {
                     Moviles.caracteristicas.add(c);
                 }
             } catch (SAXException ex) {
-                JOptionPane.showMessageDialog(this,"ERROR: El formato XML del fichero no es correcto");
+                JOptionPane.showMessageDialog(this, "ERROR: El formato XML del fichero no es correcto");
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this,"ERROR: Se ha producido un error el leer el fichero");                
+                JOptionPane.showMessageDialog(this, "ERROR: Se ha producido un error el leer el fichero");
             } catch (ParserConfigurationException ex) {
-                JOptionPane.showMessageDialog(this,"ERROR: No se ha podido crear el generador de documentos XML");
-                
+                JOptionPane.showMessageDialog(this, "ERROR: No se ha podido crear el generador de documentos XML");
+
             }
         }
     }//GEN-LAST:event_jButtonXMLActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String nombreFichero = "Rmoviles.txt";        
+        String nombreFichero = "Rmoviles.txt";
         BufferedWriter bw = null;
-        try {            
-           //Crea el archivo
+        try {
+            //Crea el archivo
             bw = new BufferedWriter(new FileWriter(nombreFichero));
             //Obtiene del arraylist las caracteristicas y las recorre con el bucle for
             for (int i = 0; i < Moviles.caracteristicas.size(); i++) {
                 String texto;
-                String marca= Moviles.caracteristicas.get(i).getMarca();
-                String modelo=Moviles.caracteristicas.get(i).getModelo();
-                int pantalla= Moviles.caracteristicas.get(i).getPantalla();
-                boolean camara=Moviles.caracteristicas.get(i).isCamara();
+                String marca = Moviles.caracteristicas.get(i).getMarca();
+                String modelo = Moviles.caracteristicas.get(i).getModelo();
+                int pantalla = Moviles.caracteristicas.get(i).getPantalla();
+                boolean camara = Moviles.caracteristicas.get(i).isCamara();
                 // Muestra en el archivo exportado la variable texto con todas las caracteristicas.
-                texto= marca +"\t"+modelo+"\t"+camara+"\t"+pantalla+ "\r\n";                
+                texto = marca + "\t" + modelo + "\t" + camara + "\t" + pantalla + "\r\n";
                 bw.write(texto);
-            }           
-            JOptionPane.showMessageDialog(this,"Archivo creado,Rmoviles");
-        }
-        catch(IOException | HeadlessException e) {
-           JOptionPane.showMessageDialog(this,"Error de escritura del fichero");           
-        }
-        finally {
+            }
+            JOptionPane.showMessageDialog(this, "Archivo creado con el nombre " + nombreFichero);
+        } catch (IOException | HeadlessException e) {
+            JOptionPane.showMessageDialog(this, "Error de escritura del fichero");
+        } finally {
             try {
                 //Cerrar el buffer
-                if(bw != null)
+                if (bw != null) {
                     bw.close();
-            }
-            catch (Exception e) {
-                JOptionPane.showMessageDialog(this,"Error al cerrar el fichero");                
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al cerrar el fichero");
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+       //Borra el elemento que queramos del arrayList
+        Moviles.caracteristicas.remove(contador);
+       //refresca lo que hay en pantalla instantaneamente
+        mostrarCaracteristicas();
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -422,8 +437,8 @@ public class NewJDialog extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonDerecha;
+    private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonIzquierda;
     private javax.swing.JButton jButtonModificar;
