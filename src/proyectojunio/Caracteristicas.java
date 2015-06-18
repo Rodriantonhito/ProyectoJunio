@@ -24,6 +24,11 @@ public class Caracteristicas {
         this.camara = camara;
         this.pantalla = pantalla;
     }
+
+    @Override
+    public String toString() {
+        return "Marca= " + marca +"\n"+ "modelo=" + modelo + "\n"+ "camara=" + camara +"\n"+"pantalla=" + pantalla; 
+    }
     /**
      *
      * constructor vacio

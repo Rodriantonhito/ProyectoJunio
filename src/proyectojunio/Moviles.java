@@ -18,6 +18,8 @@ public class Moviles {
     public static ArrayList<Caracteristicas> caracteristicas = new ArrayList();
     //Inicializamos un vector en el que guardaremos las marcas de los moviles
     public final String[] moviles = {"Nokia", "Samsung", "Iphone", "Arcatel", "Huawei", "BQ"};
+    
+    public static Caracteristicas[][] escaparate = new Caracteristicas[5][5];
 
     //Se añaden las caracteristicas al objeto creado.
     void añadirCaracteristicas() {
